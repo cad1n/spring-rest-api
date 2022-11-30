@@ -1,6 +1,7 @@
 package com.study.springrestfulapi.services;
 
 import com.study.springrestfulapi.domain.User;
+import com.study.springrestfulapi.dto.UserDTO;
 import com.study.springrestfulapi.repository.UserRepository;
 import com.study.springrestfulapi.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,13 @@ public class UserService {
     public User findById(String id) {
         Optional<User> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(id));
+    }
+
+    public User insert(User obj){
+       return repo.insert(obj);
+    }
+
+    public User fromDTO(UserDTO objDto){
+        return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
     }
 }

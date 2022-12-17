@@ -1,5 +1,6 @@
 package com.study.springrestfulapi.resources;
 
+import com.study.springrestfulapi.domain.Post;
 import com.study.springrestfulapi.domain.User;
 import com.study.springrestfulapi.dto.UserDTO;
 import com.study.springrestfulapi.services.UserService;
@@ -60,4 +61,11 @@ public class UserResource {
         service.update(obj);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
+    }
+
 }

@@ -3,6 +3,7 @@ package com.study.springrestfulapi.config;
 import com.study.springrestfulapi.domain.Post;
 import com.study.springrestfulapi.domain.User;
 import com.study.springrestfulapi.dto.AuthorDTO;
+import com.study.springrestfulapi.dto.CommentDTO;
 import com.study.springrestfulapi.repository.PostRepository;
 import com.study.springrestfulapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,17 @@ public class Instantiation implements CommandLineRunner {
         Post post1 = new Post(null, sdf.parse("21/03/2018").toString(), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", new AuthorDTO(maria));
         Post post2 = new Post(null, sdf.parse("23/03/2018").toString(), "Bom dia", "Acordei feliz hoje!", new AuthorDTO(maria));
 
-        postRepository.saveAll(Arrays.asList(post1, post2));
+        CommentDTO c1 = new CommentDTO("Boa viagem mano!", (sdf.parse("21/02/2018")).toString(), new AuthorDTO(alex));
+        CommentDTO c2 = new CommentDTO("Aproveite!", (sdf.parse("22/02/2018")).toString(), new AuthorDTO(bob));
+        CommentDTO c3 = new CommentDTO("Tenha bom proveito!", (sdf.parse("23/02/2018")).toString(), new AuthorDTO(alex));
 
+        post1.getComments().addAll(Arrays.asList(c1, c2));
+        post2.getComments().add(c3);
+
+
+        postRepository.saveAll(Arrays.asList(post1, post2));
         maria.getPosts().addAll(Arrays.asList(post1, post2));
+
         userRepository.save(maria);
     }
 }

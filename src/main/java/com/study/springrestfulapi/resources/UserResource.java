@@ -4,7 +4,6 @@ import com.study.springrestfulapi.domain.Post;
 import com.study.springrestfulapi.domain.User;
 import com.study.springrestfulapi.dto.UserDTO;
 import com.study.springrestfulapi.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +23,11 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/users")
 public class UserResource {
 
-    @Autowired
-    private UserService service;
+    private final UserService service;
+
+    public UserResource(UserService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> findAll() {

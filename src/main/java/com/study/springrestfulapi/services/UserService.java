@@ -36,10 +36,10 @@ public class UserService {
         repo.deleteById(id);
     }
 
-    public User update(User obj){
+    public void update(User obj){
         User newObj = repo.findById(obj.getId()).orElseThrow(()-> new ObjectNotFoundException(obj.getId()));
         updateData(newObj, obj);
-        return repo.save(newObj);
+        repo.save(newObj);
     }
 
     private void updateData(User newObj, User obj) {

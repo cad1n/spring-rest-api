@@ -6,7 +6,6 @@ import com.study.springrestfulapi.dto.AuthorDTO;
 import com.study.springrestfulapi.dto.CommentDTO;
 import com.study.springrestfulapi.repository.PostRepository;
 import com.study.springrestfulapi.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,11 +16,14 @@ import java.util.TimeZone;
 @Configuration
 public class Instantiation implements CommandLineRunner {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
+
+    public Instantiation(UserRepository userRepository, PostRepository postRepository) {
+        this.userRepository = userRepository;
+        this.postRepository = postRepository;
+    }
 
     @Override
     public void run(String... args) throws Exception {
